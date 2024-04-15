@@ -1,10 +1,10 @@
 import { View, Text, TextInput, Pressable, Button } from "react-native";
-import React, { useContext } from "react";
+import { useContext, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 
 export default function login() {
-  const [username, setUsername] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const { onLogin } = useAuth();
 
   const login = async () => {
@@ -19,10 +19,17 @@ export default function login() {
       <Text>Login</Text>
 
       <View>
-        <TextInput placeholder="username" onChangeText={(text: string) => {setUsername(text)}} />
+        <TextInput
+          placeholder="username"
+          onChangeText={(text: string) => {
+            setUsername(text);
+          }}
+        />
         <TextInput
           placeholder="password"
-          onChangeText={(text: string) => {setPassword(text)}}
+          onChangeText={(text: string) => {
+            setPassword(text);
+          }}
           secureTextEntry={true}
         />
       </View>

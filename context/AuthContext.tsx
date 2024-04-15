@@ -8,6 +8,7 @@ interface AuthProps {
   onRegister?: (username: string, password: string) => Promise<any>;
   onLogin?: (username: string, password: string) => Promise<any>;
   onLogout?: () => Promise<any>;
+  checkToken?: () => void;
 }
 
 const TOKEN_KEY = "token";
@@ -39,21 +40,28 @@ export const AuthProvider = ({ children }: any) => {
     getToken();
   }, []);
 
+  // login function
   const login = async (username: string, password: string) => {
     try {
       const response = await axios.post(`${API_URL}login`, {
         username,
         password,
       });
-      const token = response.data.token;
+      const token = response.data.data.token;
       await ScureStore.setItemAsync(TOKEN_KEY, token);
-      console.log("response", response.data.token);
+      console.log("response", response.data.data.token);
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setAuthState({ token, authenticated: true });
     } catch (error) {
       console.log("error", error);
-      
     }
+  };
+
+  // logout function
+  const logout = async () => {
+    await ScureStore.deleteItemAsync(TOKEN_KEY);
+    delete axios.defaults.headers.common["Authorization"];
+    setAuthState({ token: null, authenticated: false });
   };
 
   useEffect(() => {
@@ -71,6 +79,7 @@ export const AuthProvider = ({ children }: any) => {
   const value = {
     authState,
     onLogin: login,
+    onLogout: logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
