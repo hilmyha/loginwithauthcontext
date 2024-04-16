@@ -17,6 +17,7 @@ export default function AppLayout() {
         options={{
           headerShown: true,
           tabBarShowLabel: false,
+          tabBarActiveTintColor: '#4E6E81',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
@@ -25,6 +26,7 @@ export default function AppLayout() {
         options={{
           headerShown: true,
           tabBarShowLabel: false,
+          tabBarActiveTintColor: '#4E6E81',
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,
         }}
       />
