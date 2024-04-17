@@ -1,4 +1,4 @@
-import { View, Text, Pressable } from "react-native";
+import { View, Text, Pressable, TouchableOpacity } from "react-native";
 import React from "react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 
 export default function PrimaryButton(props: Props) {
   return (
-    <Pressable onPress={props.onPress}>
+    <TouchableOpacity onPress={props.onPress}>
       <View className="bg-[#4E6E81] p-3 rounded-xl">
         <Text
           className="text-white text-center text-[16px]"
@@ -17,6 +17,6 @@ export default function PrimaryButton(props: Props) {
           {props.title}
         </Text>
       </View>
-    </Pressable>
+    </TouchableOpacity>
   );
 }

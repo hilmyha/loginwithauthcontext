@@ -15,7 +15,7 @@ export default function AppLayout() {
       <Tabs.Screen
         name="home"
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: '#4E6E81',
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
@@ -24,7 +24,7 @@ export default function AppLayout() {
       <Tabs.Screen
         name="profile"
         options={{
-          headerShown: true,
+          headerShown: false,
           tabBarShowLabel: false,
           tabBarActiveTintColor: '#4E6E81',
           tabBarIcon: ({ color }) => <TabBarIcon name="person" color={color} />,

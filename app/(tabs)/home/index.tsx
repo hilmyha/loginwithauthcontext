@@ -18,6 +18,7 @@ import { useAuth } from "../../../context/AuthContext";
 import Header from "../../../components/Header";
 import MenuCard from "../../../components/card/MenuCard";
 import InformationCard from "../../../components/card/InformationCard";
+import { StatusBar } from "expo-status-bar";
 
 export default function home() {
   const infoCardArr = [
@@ -69,6 +70,7 @@ export default function home() {
 
   return (
     <SafeAreaView className="flex-1 justify-center">
+      <StatusBar style="light" backgroundColor="#405B6A" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header
           title="Selamat Datang"

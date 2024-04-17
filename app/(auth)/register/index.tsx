@@ -5,6 +5,7 @@ import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import { Link } from "expo-router";
 import { useAuth } from "../../../context/AuthContext";
+import { StatusBar } from "expo-status-bar";
 
 export default function register() {
   const { onRegister } = useAuth();
@@ -46,6 +47,7 @@ export default function register() {
 
   return (
     <SafeAreaView>
+      <StatusBar style="light" backgroundColor="#405B6A" />
       <ScrollView>
         <Header
           title="Registrasi"
@@ -96,7 +98,7 @@ export default function register() {
           </View>
           <View>
             <FormInput
-              placeholder={"Password"}
+              placeholder={"Konfirmasi Password"}
               onChangeText={(text) => setPasswordConfirmation(text)}
               value={passwordConfirmation}
               type="password"

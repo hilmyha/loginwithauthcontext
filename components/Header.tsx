@@ -20,7 +20,7 @@ export default function Header(props: {
   RIcoHide?: boolean;
 }) {
   return (
-    <View className="flex-1 gap-2 bg-[#4E6E81] p-6 rounded-bl-3xl">
+    <View className="flex-1 gap-2 bg-[#4E6E81] px-6 pt-24 pb-6 rounded-bl-3xl">
       <View className="flex-row justify-between items-center">
         {props.LIcoHide ? (
           <View className="hidden" />

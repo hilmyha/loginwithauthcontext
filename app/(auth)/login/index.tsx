@@ -5,6 +5,7 @@ import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import { Link } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function login() {
   const { onLogin } = useAuth();
@@ -28,6 +29,7 @@ export default function login() {
 
   return (
     <SafeAreaView>
+      <StatusBar style="light" backgroundColor="#405B6A" />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Header
           title="Login"

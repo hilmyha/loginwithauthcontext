@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
+import { StatusBar } from "expo-status-bar";
 
 export default function profile() {
   const { authState, onUser, onLogout } = useAuth();
@@ -47,6 +48,7 @@ export default function profile() {
     <>
       {authState!.authenticated && authState!.user ? (
         <SafeAreaView className="flex-1 justify-center">
+          <StatusBar style="light" backgroundColor="#405B6A" />
           <ScrollView showsVerticalScrollIndicator={false}>
             <View className="p-6">
               <Text>Profile</Text>
