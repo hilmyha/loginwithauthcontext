@@ -10,6 +10,7 @@ import {
 import React, { useEffect } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { StatusBar } from "expo-status-bar";
+import Header from "../../../components/Header";
 
 export default function profile() {
   const { authState, onUser, onLogout } = useAuth();
@@ -45,28 +46,26 @@ export default function profile() {
   }
 
   return (
-    <>
-      {authState!.authenticated && authState!.user ? (
-        <SafeAreaView className="flex-1 justify-center">
-          <StatusBar style="light" backgroundColor="#405B6A" />
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <View className="p-6">
-              <Text>Profile</Text>
-              <Text>Email: {authState!.user.email}</Text>
-              <Text>Username: {authState!.user.username}</Text>
-            </View>
-            <View className="">
-              <Pressable onPress={logout} className="bg-[#4E6E81]">
-                <Text>Logout</Text>
-              </Pressable>
-            </View>
-          </ScrollView>
-        </SafeAreaView>
-      ) : (
-        <SafeAreaView>
-          <Splash />
-        </SafeAreaView>
-      )}
-    </>
+    <SafeAreaView className="flex-1 justify-center">
+      <StatusBar style="light" backgroundColor="#405B6A" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {authState!.authenticated && authState!.user ? (
+          <View>
+            <Header title={authState!.user.username} descHide={true} />
+            <Text>Email: {authState!.user.email}</Text>
+            <Text>Username: {authState!.user.username}</Text>
+          </View>
+        ) : (
+          <View>
+            <Splash />
+          </View>
+        )}
+        <View>
+          <Pressable onPress={logout} className="bg-[#4E6E81]">
+            <Text>Logout</Text>
+          </Pressable>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }

@@ -43,7 +43,7 @@ export default function Header(props: {
       {props.descHide ? (
         <View className="hidden" />
       ) : (
-        <View className="flex-row justify-between items-center">
+        <View className="flex justify-between items-center">
           <Text className="text-white">{props.desc}</Text>
         </View>
       )}

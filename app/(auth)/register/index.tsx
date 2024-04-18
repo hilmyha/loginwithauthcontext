@@ -52,11 +52,6 @@ export default function register() {
         <Header
           title="Registrasi"
           desc="Silahkan registrasi sebagai user baru untuk melanjutkan"
-          descHide={false}
-          LIcon="arrow-back"
-          RIcon="notifications"
-          LIcoHide={true}
-          RIcoHide={true}
         />
         <View className="p-6 flex-1 gap-4">
           <View>

@@ -34,11 +34,6 @@ export default function login() {
         <Header
           title="Login"
           desc="Masuk untuk melanjutkan"
-          descHide={false}
-          LIcon="arrow-back"
-          RIcon="notifications"
-          LIcoHide={true}
-          RIcoHide={true}
         />
         <View className="p-6 flex-1 gap-4">
           <View>
