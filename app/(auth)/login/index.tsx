@@ -1,6 +1,6 @@
 import { View, Text, Pressable, SafeAreaView, ScrollView } from "react-native";
 import { useContext, useState } from "react";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthenticationContext";
 import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
@@ -16,14 +16,14 @@ export default function login() {
     password: [],
   });
 
-  const login = async () => {
+  const handleLogin = async () => {
     try {
       const response = await onLogin!(username, password);
       if (response && response.errors) {
-        setErrors(response.errors); // Set error message from response
+        setErrors(response.errors);
       }
-    } catch (error) {
-      setErrors(null as any); // Set generic error message
+    } catch (error: any) {
+      setErrors(null as any);
     }
   };
 
@@ -31,10 +31,7 @@ export default function login() {
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#405B6A" />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Header
-          title="Login"
-          desc="Masuk untuk melanjutkan"
-        />
+        <Header title="Login" desc="Masuk untuk melanjutkan" />
         <View className="p-6 flex-1 gap-4">
           <View>
             <FormInput
@@ -52,10 +49,10 @@ export default function login() {
               value={password}
               type="password"
               secureTextEntry={true}
-              errors={errors.password}
+              errors={errors?.password}
             />
           </View>
-          <PrimaryButton onPress={login} title="Login" />
+          <PrimaryButton onPress={handleLogin} title="Login" />
           <View className="flex-row items-center">
             <Text className="text-[#4B5563] text-[14px] mr-1">
               Belum punya akun?

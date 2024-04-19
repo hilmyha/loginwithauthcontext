@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from "react-native";
 import React, { useEffect } from "react";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthenticationContext";
 import { StatusBar } from "expo-status-bar";
 import Header from "../../../components/Header";
 

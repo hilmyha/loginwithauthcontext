@@ -5,9 +5,9 @@ import { router, useSegments } from "expo-router";
 
 interface AuthProps {
   authState?: {
-    user: User | null;
     token: string | null;
     authenticated: boolean | null;
+    user: User | null;
   };
   onUser?: () => Promise<any>;
   onRegister?: (
@@ -19,7 +19,6 @@ interface AuthProps {
   ) => Promise<any>;
   onLogin?: (username: string, password: string) => Promise<any>;
   onLogout?: () => Promise<any>;
-  checkToken?: () => void;
 }
 
 interface User {
@@ -46,17 +45,19 @@ export const AuthProvider = ({ children }: any) => {
   const segments = useSegments();
 
   useEffect(() => {
-    const getToken = async () => {
+    const InitializeToken = async () => {
       const token = await ScureStore.getItemAsync(TOKEN_KEY);
-      if (token) {
+      if (token !== null && token !== undefined) {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         setAuthState({ user: null, token, authenticated: true });
       } else {
         setAuthState({ user: null, token: null, authenticated: false });
       }
     };
-    getToken();
+    InitializeToken();
   }, []);
+
+  // services
 
   // register function
   const register = async (
@@ -91,7 +92,6 @@ export const AuthProvider = ({ children }: any) => {
     }
   };
 
-  // login function
   const login = async (username: string, password: string) => {
     try {
       const response = await axios.post(`${API_URL}login`, {

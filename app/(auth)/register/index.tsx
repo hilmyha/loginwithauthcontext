@@ -4,7 +4,7 @@ import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
 import { Link } from "expo-router";
-import { useAuth } from "../../../context/AuthContext";
+import { useAuth } from "../../../context/AuthenticationContext";
 import { StatusBar } from "expo-status-bar";
 
 export default function register() {
@@ -28,7 +28,7 @@ export default function register() {
     passwordConfirmation: [],
   });
 
-  const register = async () => {
+  const handleRegister = async () => {
     try {
       const response = await onRegister!(
         name,
@@ -38,7 +38,7 @@ export default function register() {
         passwordConfirmation
       );
       if (response && response.errors) {
-        setErrors(response.errors); // Set error message from response
+        setErrors(response.errors);
       }
     } catch (error) {
       setErrors(null as any); // Set generic error message
@@ -101,7 +101,7 @@ export default function register() {
               errors={errors?.username}
             />
           </View>
-          <PrimaryButton onPress={register} title="Registrasi" />
+          <PrimaryButton onPress={handleRegister} title="Registrasi" />
           <View className="flex-row items-center">
             <Text className="text-[#4B5563] text-[14px] mr-1">
               Sudah punya akun?
