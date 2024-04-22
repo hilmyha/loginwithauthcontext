@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import { useAuth } from "../../../context/AuthenticationContext";
 import { StatusBar } from "expo-status-bar";
 
@@ -39,6 +39,8 @@ export default function register() {
       );
       if (response && response.errors) {
         setErrors(response.errors);
+      } else {
+        router.push("/(onboard)/welcome");
       }
     } catch (error) {
       setErrors(null as any); // Set generic error message

@@ -11,6 +11,7 @@ import React, { useEffect } from "react";
 import { useAuth } from "../../../context/AuthenticationContext";
 import { StatusBar } from "expo-status-bar";
 import Header from "../../../components/Header";
+import PrimaryButton from "../../../components/button/PrimaryButton";
 
 export default function profile() {
   const { authState, onUser, onLogout } = useAuth();
@@ -26,7 +27,7 @@ export default function profile() {
     }
   }, [authState!.user, authState!.authenticated, onUser]);
 
-  function logout() {
+  function handleLogout() {
     Alert.alert("Logout", "Are you sure you want to logout?", [
       {
         text: "Cancel",
@@ -51,19 +52,32 @@ export default function profile() {
       <ScrollView showsVerticalScrollIndicator={false}>
         {authState!.authenticated && authState!.user ? (
           <View>
-            <Header title={authState!.user.username} descHide={true} />
-            <Text>Email: {authState!.user.email}</Text>
-            <Text>Username: {authState!.user.username}</Text>
+            <Header
+              title={authState!.user.name}
+              desc={authState!.user.email}
+              descHide={false}
+            />
+            <View className="p-6">
+              <Text>Email: {authState!.user.email}</Text>
+              <Text>Username: {authState!.user.username}</Text>
+            </View>
           </View>
         ) : (
           <View>
+            <View className="flex-1 gap-2 bg-[#4E6E81] px-6 pt-24 pb-6 rounded-bl-3xl">
+              <View className="flex justify-center items-center">
+                <Splash />
+                <View className="flex justify-center items-center">
+                  <Splash />
+                </View>
+              </View>
+            </View>
             <Splash />
           </View>
         )}
-        <View>
-          <Pressable onPress={logout} className="bg-[#4E6E81]">
-            <Text>Logout</Text>
-          </Pressable>
+        <View className="p-6">
+          <PrimaryButton onPress={handleLogout} title="Logout" />
+          <Text className="bottom-0 text-center">Version 1.0.0</Text>
         </View>
       </ScrollView>
     </SafeAreaView>

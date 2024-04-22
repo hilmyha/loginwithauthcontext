@@ -3,9 +3,9 @@ import { getToken } from "../services/TokenService";
 
 const axios = axiosLib.create({
   baseURL: "http://10.0.2.2:8000/api/",
-  // headers: {
-  //   Accept: "application/json",
-  // },
+  headers: {
+    Accept: "application/json",
+  },
 });
 
 axios.interceptors.request.use(async (req) => {

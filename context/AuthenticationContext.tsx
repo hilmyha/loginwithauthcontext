@@ -5,6 +5,7 @@ import { getToken } from "../services/TokenService";
 
 interface User {
   id: number;
+  name: string;
   username: string;
   email: string;
 }
@@ -39,6 +40,7 @@ export const AuthProvider = ({ children }: any) => {
     token: string | null;
     authenticated: boolean | null;
   }>({ user: null, token: null, authenticated: null });
+  const [justRegistered, setJustRegistered] = useState<boolean>(false);
 
   const segments = useSegments();
 
@@ -62,7 +64,12 @@ export const AuthProvider = ({ children }: any) => {
       router.replace("/(auth)/login");
     } else if (authState.authenticated && inAuthGroup) {
       // Redirect away from the sign-in page.
-      router.replace("/(tabs)/home");
+      if (justRegistered) {
+        setJustRegistered(false);
+        router.replace("/(onboard)/welcome");
+      } else {
+        router.replace("/(tabs)/home");
+      }
     }
   }, [authState, segments]);
 
@@ -72,6 +79,7 @@ export const AuthProvider = ({ children }: any) => {
   const onUser = async () => {
     try {
       const user = await loadUser();
+      console.log("load user", user);
       setAuthState({ user, token: authState.token, authenticated: true });
     } catch (error: any) {
       return error.response.data;
@@ -94,6 +102,7 @@ export const AuthProvider = ({ children }: any) => {
         password_confirmation,
       });
       const user = await loadUser();
+      setJustRegistered(true);
       setAuthState({ user: user, token: authState.token, authenticated: true });
     } catch (error: any) {
       return error.response.data;
@@ -104,6 +113,7 @@ export const AuthProvider = ({ children }: any) => {
     try {
       await login({ username, password });
       const user = await loadUser();
+      console.log("user from login", user);
       setAuthState({ user: user, token: authState.token, authenticated: true });
     } catch (error: any) {
       return error.response.data;

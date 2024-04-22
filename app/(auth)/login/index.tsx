@@ -23,7 +23,8 @@ export default function login() {
         setErrors(response.errors);
       }
     } catch (error: any) {
-      setErrors(null as any);
+      const err = error.response.data.errors;
+      setErrors(err);
     }
   };
 
