@@ -1,28 +1,40 @@
-import { View, Text, SafeAreaView, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+} from "react-native";
 import React, { useState } from "react";
 import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
 import PrimaryButton from "../../../components/button/PrimaryButton";
-import { Link, router } from "expo-router";
-import { useAuth } from "../../../context/AuthenticationContext";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { createWarga } from "../../../services/WargaService";
+import { Picker } from "@react-native-picker/picker";
 
-export default function register() {
+export default function daftar() {
   const [namaKK, setNamaKK] = useState("");
   const [blok, setBlok] = useState("");
   const [jalan, setJalan] = useState("");
   const [jumlahKeluarga, setJumlahKeluarga] = useState("");
+  const [statusKependudukan, setStatusKependudukan] = useState(false);
+  const [nomorHp, setNomorHp] = useState("");
+
+  const [selectedStatusKependudukan, setSelectedStatusKependudukan] =
+    useState();
   const [errors, setErrors] = useState<{
     namaKK: [];
     blok: [];
     jalan: [];
     jumlahKeluarga: [];
+    statusKependudukan: [];
   }>({
     namaKK: [],
     blok: [],
     jalan: [],
     jumlahKeluarga: [],
+    statusKependudukan: [],
   });
 
   const handleDaftar = async () => {
@@ -32,6 +44,8 @@ export default function register() {
         blok,
         jalan,
         jumlah_keluarga: parseInt(jumlahKeluarga),
+        status_kependudukan: statusKependudukan,
+        nomor_hp: nomorHp,
       });
       console.log("berhasil daftar");
 
@@ -58,7 +72,7 @@ export default function register() {
               onChangeText={(text) => setNamaKK(text)}
               value={namaKK}
               type="default"
-              errors={errors?.namaKK}
+              // errors={errors?.namaKK}
             />
           </View>
           <View>
@@ -84,7 +98,32 @@ export default function register() {
               placeholder={"Jumlah Keluarga"}
               onChangeText={(text) => setJumlahKeluarga(text)}
               value={jumlahKeluarga.toString()}
-              type="default"
+              type="number-pad"
+              // errors={errors?.username}
+            />
+          </View>
+          <View>
+            <Text className="text-[#4B5563] text-[12px]">
+              Status Kependudukan
+            </Text>
+            <Picker
+              className="flex-row w-full items-center bg-white rounded-lg px-4 py-3 flex-1 text-[#9E9C98] "
+              selectedValue={selectedStatusKependudukan}
+              onValueChange={(itemValue, itemIndex) => {
+                setSelectedStatusKependudukan(itemValue);
+                setStatusKependudukan(itemValue === "1" ? true : false);
+              }}
+            >
+              <Picker.Item label="Kontrak" value="0" />
+              <Picker.Item label="Tetap" value="1" />
+            </Picker>
+          </View>
+          <View>
+            <FormInput
+              placeholder={"Nomor HP"}
+              onChangeText={(text) => setNomorHp(text)}
+              value={nomorHp}
+              type="phone-pad"
               // errors={errors?.username}
             />
           </View>

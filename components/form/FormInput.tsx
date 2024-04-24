@@ -1,4 +1,11 @@
-import { View, Text, TextInputProps, TextInput, Pressable, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  TextInputProps,
+  TextInput,
+  Pressable,
+  StyleSheet,
+} from "react-native";
 import React, { useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -30,6 +37,11 @@ export default function FormInput({
   return (
     <View>
       <View className="flex-row w-full items-center bg-white rounded-lg">
+        {rest.type === "phone-pad" && (
+          <Text className="px-3 py-4 border-r border-r-gray-200">
+            <Text className="text-[#9E9C98] text-[14px]">+62</Text>
+          </Text>
+        )}
         <TextInput
           className="px-4 py-3 flex-1 text-[#9E9C98]"
           placeholder={placeholder}

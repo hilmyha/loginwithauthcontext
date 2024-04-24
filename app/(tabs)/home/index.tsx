@@ -48,21 +48,21 @@ export default function home() {
       icolor: "#16A34A",
       bgcolor: "#22C55E",
       title: "Warga",
-      // link: "pages/warga",
+      link: "(pages)/warga",
     },
     {
       iconame: "information-circle",
       icolor: "#D97706",
       bgcolor: "#F59E0B",
       title: "Informasi",
-      // link: "pages/warga",
+      link: "(pages)/warga",
     },
     {
       iconame: "megaphone",
       icolor: "#DC2626",
       bgcolor: "#EF4444",
       title: "Panic Button",
-      // link: "pages/warga",
+      link: "(pages)/warga",
     },
   ];
 
@@ -91,6 +91,7 @@ export default function home() {
                 icoColor={menuCard.icolor}
                 bgcolor={menuCard.bgcolor}
                 title={menuCard.title}
+                link={menuCard.link}
               />
             ))}
           </View>
