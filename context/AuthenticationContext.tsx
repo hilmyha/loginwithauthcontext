@@ -8,6 +8,7 @@ interface User {
   name: string;
   username: string;
   email: string;
+  is_admin: boolean;
 }
 
 interface AuthProps {

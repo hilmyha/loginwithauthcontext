@@ -5,8 +5,10 @@ import {
   Alert,
   SafeAreaView,
   ScrollView,
+  RefreshControl,
+  ActivityIndicator,
 } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   useFonts,
   Rubik_300Light,
@@ -19,28 +21,48 @@ import Header from "../../../components/Header";
 import MenuCard from "../../../components/card/MenuCard";
 import InformationCard from "../../../components/card/InformationCard";
 import { StatusBar } from "expo-status-bar";
+import { getInformasi } from "../../../services/InformasiService";
 
 export default function home() {
-  const infoCardArr = [
-    {
-      title: "Kumpul Warga",
-      date: "1 Agustus 2024",
-      time: "10:00",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In urna, euismod.",
-    },
-    {
-      title: "Kerja Bakti",
-      date: "9 Agustus 2024",
-      time: "14:00",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In urna, euismod.",
-    },
-    {
-      title: "Arisan RT",
-      date: "12 Agustus 2024",
-      time: "20:00",
-      desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In urna, euismod.",
-    },
-  ];
+  const [informasi, setInformasi] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);
+
+  useEffect(() => {
+    const getDataInformasi = async () => {
+      try {
+        const response = await getInformasi();
+        console.log("response", response);
+
+        setInformasi(response.data);
+
+        setLoading(false);
+      } catch (error) {
+        setIsEmpty(true);
+      }
+    };
+
+    getDataInformasi();
+  }, []);
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    getInformasi().then((response) => {
+      setInformasi(response.data);
+      setRefreshing(false);
+    });
+  };
+
+  const Splash = () => {
+    return (
+      <ActivityIndicator
+        size="large"
+        color="#0000ff"
+        style={{ marginTop: 20 }}
+      />
+    );
+  };
 
   const menuCardArr = [
     {
@@ -66,16 +88,18 @@ export default function home() {
     },
   ];
 
-  const { onUser } = useAuth();
-
   return (
     <SafeAreaView className="flex-1 justify-center">
       <StatusBar style="light" backgroundColor="#405B6A" />
-      <ScrollView showsVerticalScrollIndicator={false}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      >
         <Header
           title="Selamat Datang"
-          desc="Home Page"
-          descHide={true}
+          descHide={false}
           LIcon="arrow-back"
           RIcon="notifications"
           LIcoHide={true}
@@ -102,13 +126,15 @@ export default function home() {
             Informasi Terbaru
           </Text>
 
-          {infoCardArr.map((infoCard, index) => (
+          {loading && <Splash />}
+          {isEmpty && <Text>Data is empty</Text>}
+          {informasi.map((item: any, index) => (
             <InformationCard
               key={index}
-              title={infoCard.title}
-              date={infoCard.date}
-              time={infoCard.time}
-              desc={infoCard.desc}
+              title={item.judul}
+              date={item.tanggal}
+              desc={item.deskripsi}
+              time={item.waktu}
             />
           ))}
         </View>

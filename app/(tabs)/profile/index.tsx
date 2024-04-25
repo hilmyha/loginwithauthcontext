@@ -57,10 +57,11 @@ export default function profile() {
               desc={authState!.user.email}
               descHide={false}
             />
-            <View className="p-6">
-              <Text>Email: {authState!.user.email}</Text>
-              <Text>Username: {authState!.user.username}</Text>
-            </View>
+            {authState!.user.is_admin ? (
+              <View className="p-6">
+                <Text>Admin</Text>
+              </View>
+            ) : null}
           </View>
         ) : (
           <View>

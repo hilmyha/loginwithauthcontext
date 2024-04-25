@@ -16,6 +16,7 @@ type Props = {
   onChangeText?: TextInputProps["onChangeText"];
   value?: string;
   errors?: [];
+  editable?: boolean;
 };
 
 export default function FormInput({

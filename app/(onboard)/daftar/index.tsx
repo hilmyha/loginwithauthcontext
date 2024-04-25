@@ -1,9 +1,4 @@
-import {
-  View,
-  Text,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import { View, Text, SafeAreaView, ScrollView, StyleSheet } from "react-native";
 import React, { useState } from "react";
 import Header from "../../../components/Header";
 import FormInput from "../../../components/form/FormInput";
@@ -57,6 +52,16 @@ export default function daftar() {
     }
   };
 
+  const page = StyleSheet.create({
+    picker: {
+      backgroundColor: "white",
+      borderRadius: 24,
+      padding: 8,
+      color: "#9E9C98",
+      marginVertical: 8,
+    },
+  });
+
   return (
     <SafeAreaView>
       <StatusBar style="light" backgroundColor="#405B6A" />
@@ -106,17 +111,19 @@ export default function daftar() {
             <Text className="text-[#4B5563] text-[12px]">
               Status Kependudukan
             </Text>
-            <Picker
-              className="flex-row w-full items-center bg-white rounded-lg px-4 py-3 flex-1 text-[#9E9C98] "
-              selectedValue={selectedStatusKependudukan}
-              onValueChange={(itemValue, itemIndex) => {
-                setSelectedStatusKependudukan(itemValue);
-                setStatusKependudukan(itemValue === "1" ? true : false);
-              }}
-            >
-              <Picker.Item label="Kontrak" value="0" />
-              <Picker.Item label="Tetap" value="1" />
-            </Picker>
+            <View>
+              <Picker
+                style={page.picker}
+                selectedValue={selectedStatusKependudukan}
+                onValueChange={(itemValue, itemIndex) => {
+                  setSelectedStatusKependudukan(itemValue);
+                  setStatusKependudukan(itemValue === "1" ? true : false);
+                }}
+              >
+                <Picker.Item label="Kontrak" value="0" />
+                <Picker.Item label="Tetap" value="1" />
+              </Picker>
+            </View>
           </View>
           <View>
             <FormInput
