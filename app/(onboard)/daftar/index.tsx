@@ -18,19 +18,19 @@ export default function daftar() {
 
   const [selectedStatusKependudukan, setSelectedStatusKependudukan] =
     useState();
-  const [errors, setErrors] = useState<{
-    namaKK: [];
-    blok: [];
-    jalan: [];
-    jumlahKeluarga: [];
-    statusKependudukan: [];
-  }>({
-    namaKK: [],
-    blok: [],
-    jalan: [],
-    jumlahKeluarga: [],
-    statusKependudukan: [],
-  });
+  // const [errors, setErrors] = useState<{
+  //   namaKK: [];
+  //   blok: [];
+  //   jalan: [];
+  //   jumlahKeluarga: [];
+  //   statusKependudukan: [];
+  // }>({
+  //   namaKK: [],
+  //   blok: [],
+  //   jalan: [],
+  //   jumlahKeluarga: [],
+  //   statusKependudukan: [],
+  // });
 
   const handleDaftar = async () => {
     try {
@@ -47,7 +47,7 @@ export default function daftar() {
       router.push("/(tabs)/home");
     } catch (error: any) {
       if (error.response) {
-        setErrors(error.response.data.errors);
+        // setErrors(error.response.data.errors);
       }
     }
   };

@@ -8,6 +8,14 @@ const axios = axiosLib.create({
   },
 });
 
+const axiosFile = axiosLib.create({
+  baseURL: "http://10.0.2.2:8000/api/",
+  headers: {
+    Accept: "application/json",
+    "Content-Type": "multipart/form-data",
+  },
+});
+
 axios.interceptors.request.use(async (req) => {
   const token = await getToken();
 
@@ -18,4 +26,15 @@ axios.interceptors.request.use(async (req) => {
   return req;
 });
 
+axiosFile.interceptors.request.use(async (req) => {
+  const token = await getToken();
+
+  if (token !== null) {
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+
+  return req;
+});
+
 export default axios;
+export { axiosFile };
